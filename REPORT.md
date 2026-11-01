@@ -60,46 +60,51 @@
 Вміст `input.txt`:
 
 ```text
-isalpha 10 isdigit 99
-20 45 80
-isalpha12 isdigit34
-012 123 7 @
-isalph isdigitX
+isalpha isdigit
+isalpha10isdigit99 99isalpha10
+00 01 02 03 04 05 06 07 08 09
+10 11 12 13 14 15 16 17 18 19
+20 21 22 23 24 25 26 27 28 29
+30 31 32 33 34 35 36 37 38 39
+40 41 42 43 44 45 46 47 48 49
+50 51 52 53 54 55 56 57 58 59
+60 61 62 63 64 65 66 67 68 69
+70 71 72 73 74 75 76 77 78 79
+80 81 82 83 84 85 86 87 88 89
+90 91 92 93 94 95 96 97 98 99
+0 1 2 3 4 5 6 7 8 9 100 123 1234 9999
+i is isd isdi isdig isalph
+isalphaX isdigitX isalpha10 isdigit99
+ISALPHA ISDIGIT IsAlpha IsDigit
+abcdefghijklmnopqrstuvwxyz
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+! @ # $ % ^ & * ( ) - _ = + [ ] { } ; : ' " , . < > / ? \ | ~
+  isalpha	10   isdigit	99  
+
+after blank line: isdigit 10
 ```
 
 ## Результат
 
-Обидва файли результату містять однакові рядки:
+Обидва файли результату однакові та містять 298 лексем. Нижче наведено кілька прикладів. Повний результат є у `output_cpp.txt` та `output_flex.txt`.
 
 ```text
 <1, ISALPHA, isalpha>
-<1, NUMBER, 10>
 <1, ISDIGIT, isdigit>
-<1, NUMBER, 99>
-<2, NUMBER, 20>
-<2, NUMBER, 45>
-<2, NUMBER, 80>
-<3, ISALPHA, isalpha>
-<3, NUMBER, 12>
-<3, ISDIGIT, isdigit>
-<3, NUMBER, 34>
-<4, UNKNOWN, 0>
-<4, NUMBER, 12>
-<4, NUMBER, 12>
-<4, UNKNOWN, 3>
-<4, UNKNOWN, 7>
-<4, UNKNOWN, @>
-<5, UNKNOWN, i>
-<5, UNKNOWN, s>
-<5, UNKNOWN, a>
-<5, UNKNOWN, l>
-<5, UNKNOWN, p>
-<5, UNKNOWN, h>
-<5, ISDIGIT, isdigit>
-<5, UNKNOWN, X>
+<2, ISALPHA, isalpha>
+<2, NUMBER, 10>
+<2, ISDIGIT, isdigit>
+<2, NUMBER, 99>
+<3, UNKNOWN, 0>
+<13, UNKNOWN, 0>
+<13, NUMBER, 12>
+<13, UNKNOWN, 3>
+<18, UNKNOWN, I>
+<17, UNKNOWN, a>
+<19, UNKNOWN, !>
 ```
 
-Наприклад, у `123` правило числа може забрати тільки перші дві цифри: це `NUMBER 12`; остання цифра стає `UNKNOWN 3`. У `012` нуль не може бути першою цифрою числа, тому спершу виходить `UNKNOWN 0`, а далі `NUMBER 12`.
+У `012` нуль розпізнається як `UNKNOWN`, після нього `12` є `NUMBER`. У `123` перші дві цифри утворюють `NUMBER 12`, а остання цифра — `UNKNOWN 3`.
 
 ## Реалізація
 
@@ -109,4 +114,4 @@ isalph isdigitX
 
 ## Перевірка
 
-Обидва проєкти успішно зібрано в режимі `Debug x64`. Запуск `build_and_check.ps1` перевіряє, що C++ і Flex створюють однаковий результат. Окремо перевіряли граничні числа, нуль на початку, неповні ключові слова, невідомі символи, пробіли й рядки.
+Обидва проєкти успішно зібрано в режимі `Debug x64`. У тесті перевірено числа 00–99, нуль на початку, довгі числа, ключові слова та неповні префікси, великі літери, інші літери, символи, табуляцію й порожній рядок. `build_and_check.ps1` підтвердив, що C++ і Flex створили однаковий результат із 298 лексем.
