@@ -1,36 +1,22 @@
-# Лабораторна робота 3, варіант 15
+# SPL Lab 3, variant 15
 
-Лексичний аналізатор розпізнає ключові слова `isalpha` і `isdigit`, а також двоцифрові десяткові сталі без початкового нуля. Є реалізація на C++ і реалізація засобами Flex. Обидві записують лексеми у форматі `<номер рядка, тип, значення>`.
+The lexical analyzers recognize the keywords `isalpha` and `isdigit`, and two-digit decimal numbers without a leading zero. Both analyzers write tokens as `<line, type, value>`.
 
-## Відкрити й запустити
+## Build and run
 
-Відкрийте `SPL_Lab3.sln` у Rider або Visual Studio. Зберіть рішення в режимі `Debug`, платформа `x64`.
+Open `SPL_Lab3.sln` in Rider or Visual Studio and build in `Debug x64`.
 
-У рішенні є два проєкти:
+The `Cpp` project reads `input.txt` and writes `output_cpp.txt`. The `Flex` project regenerates `Flex/scanner.cpp` from `Flex/scanner.l` before building, then writes `output_flex.txt`.
 
-- `Cpp` читає `input.txt` і записує результат у `output_cpp.txt`.
-- `Flex` запускає Flex-аналізатор з правилами у `Flex/scanner.l` і записує результат у `output_flex.txt`.
+To check both results, run `build_and_check.ps1` in Developer PowerShell for Visual Studio. It builds and runs both projects, then compares their output files.
 
-Перед збіркою проєкт Flex створює `Flex/scanner.cpp` із `Flex/scanner.l`. Тому змінювати правила потрібно у `scanner.l`.
+## Files
 
-## Типи лексем
-
-- `ISALPHA` — точне слово `isalpha`.
-- `ISDIGIT` — точне слово `isdigit`.
-- `NUMBER` — дві цифри, перша від 1 до 9: `[1-9][0-9]`.
-- `UNKNOWN` — один символ, що не підходить під інші правила.
-- пробіли, табуляції та переноси рядків пропускаються.
-
-Аналізатори вибирають найдовший відповідний фрагмент. Наприклад, `123` дає `NUMBER 12`, потім `UNKNOWN 3`; `012` дає `UNKNOWN 0`, потім `NUMBER 12`.
-
-## Файли
-
-- `input.txt` — тестові рядки.
-- `output_cpp.txt`, `output_flex.txt` — результати двох аналізаторів.
-- `input_colored.html` — кольорове відображення тих самих тестових рядків для показу.
-- `automaton/dfa.png` — діаграма переходів.
-- `automaton/transition_table.csv` — повна таблиця переходів.
-- `REPORT.md` — умова, класи символів, автомат і приклад результату.
-- `PRESENTATION.md` — короткий текст для пояснення роботи.
-- `Laboratorna_3_variant_15.docx` — звіт.
-- `Zoshyt_Lab3_variant_15.docx` — матеріал для зошита.
+- `input.txt` — lexer test input.
+- `output_cpp.txt`, `output_flex.txt` — results from both analyzers.
+- `Cpp/main.cpp` — table-driven analyzer.
+- `Flex/scanner.l` — Flex rules.
+- `automaton/dfa.png` — state diagram.
+- `automaton/transition_table.csv` — transition table.
+- `tools/win_flex.exe` — scanner generator used by the Flex project.
+- `tools/LICENSE_FLEX.txt` — Flex license.
