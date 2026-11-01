@@ -1,0 +1,5 @@
+isalpha 10 isdigit 99
+20 45 80
+isalpha12 isdigit34
+012 123 7 @
+isalph isdigitX

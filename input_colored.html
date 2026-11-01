@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<title>Кольорове виділення лексем</title>
+<style>
+body { font-family: Consolas, monospace; margin: 24px; }
+pre { font-size: 20px; line-height: 1.7; }
+.keyword { color: #16803c; font-weight: bold; }
+.number { color: #1659b7; font-weight: bold; }
+.unknown { color: #c62828; font-weight: bold; }
+</style>
+</head>
+<body>
+<h2>Кольорове виділення розпізнаних лексем</h2>
+<p>Зелений — ключове слово; синій — двоцифрове число; червоний — UNKNOWN; пропуски лишаються без кольору.</p>
+<pre><span class="keyword">isalpha</span> <span class="number">10</span> <span class="keyword">isdigit</span> <span class="number">99</span>
+<span class="number">20</span> <span class="number">45</span> <span class="number">80</span>
+<span class="keyword">isalpha</span><span class="number">12</span> <span class="keyword">isdigit</span><span class="number">34</span>
+<span class="unknown">0</span><span class="number">12</span> <span class="number">12</span><span class="unknown">3</span> <span class="unknown">7</span> <span class="unknown">@</span>
+<span class="unknown">i</span><span class="unknown">s</span><span class="unknown">a</span><span class="unknown">l</span><span class="unknown">p</span><span class="unknown">h</span> <span class="keyword">isdigit</span><span class="unknown">X</span></pre>
+</body>
+</html>
