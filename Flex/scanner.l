@@ -1,19 +1,19 @@
-%option noyywrap nounput noinput yylineno never-interactive
 %{
 #include <stdio.h>
 FILE* output;
 %}
+%option noyywrap yylineno nounput noinput
 %%
-"isalpha"     { fprintf(output, "<%d, ISALPHA, %s>\n", yylineno, yytext); }
-"isdigit"     { fprintf(output, "<%d, ISDIGIT, %s>\n", yylineno, yytext); }
-[1-9][0-9]    { fprintf(output, "<%d, NUMBER, %s>\n", yylineno, yytext); }
-[ \t\r\n]+   ;
-.             { fprintf(output, "<%d, UNKNOWN, %s>\n", yylineno, yytext); }
+"isalpha"       { fprintf(output, "<%d, ISALPHA, %s>\n", yylineno, yytext); }
+"isdigit"       { fprintf(output, "<%d, ISDIGIT, %s>\n", yylineno, yytext); }
+[1-9][0-9]      { fprintf(output, "<%d, NUMBER, %s>\n", yylineno, yytext); }
+[ \t\r\n]+      ;
+.               { fprintf(output, "<%d, UNKNOWN, %s>\n", yylineno, yytext); }
 %%
 int main() {
-    yyin = fopen("../input.txt", "rb");
+    yyin = fopen("../input.txt", "r");
     output = fopen("../output_flex.txt", "w");
-    if (!yyin || !output) {
+    if (yyin == NULL || output == NULL) {
         puts("File error");
         return 1;
     }
@@ -23,3 +23,4 @@ int main() {
     puts("Done: output_flex.txt");
     return 0;
 }
+
