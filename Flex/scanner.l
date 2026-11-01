@@ -1,26 +1,31 @@
 %{
+#include <iostream>
 #include <stdio.h>
-FILE* output;
+using namespace std;
+int line_number = 1;
 %}
-%option noyywrap yylineno nounput noinput
+%option noyywrap
+DIGIT [0-9]
+NUMBER [1-9]{DIGIT}
 %%
-"isalpha"       { fprintf(output, "<%d, ISALPHA, %s>\n", yylineno, yytext); }
-"isdigit"       { fprintf(output, "<%d, ISDIGIT, %s>\n", yylineno, yytext); }
-[1-9][0-9]      { fprintf(output, "<%d, NUMBER, %s>\n", yylineno, yytext); }
-[ \t\r\n]+      ;
-.               { fprintf(output, "<%d, UNKNOWN, %s>\n", yylineno, yytext); }
+[ \t\r]+ ;
+\n { line_number++; }
+"isalpha" { cout << "<" << line_number << ", ISALPHA, " << yytext << ">" << endl; }
+"isdigit" { cout << "<" << line_number << ", ISDIGIT, " << yytext << ">" << endl; }
+{NUMBER} { cout << "<" << line_number << ", NUMBER, " << yytext << ">" << endl; }
+. { cout << "<" << line_number << ", UNKNOWN, " << yytext << ">" << endl; }
 %%
 int main() {
-    yyin = fopen("../input.txt", "r");
-    output = fopen("../output_flex.txt", "w");
-    if (yyin == NULL || output == NULL) {
-        puts("File error");
+    if (freopen("../input.txt", "r", stdin) == NULL) {
+        cout << "File error" << endl;
+        return 1;
+    }
+    if (freopen("../output_flex.txt", "w", stdout) == NULL) {
+        cout << "File error" << endl;
         return 1;
     }
     yylex();
-    fclose(yyin);
-    fclose(output);
-    puts("Done: output_flex.txt");
     return 0;
 }
+
 
