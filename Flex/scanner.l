@@ -15,7 +15,7 @@ ISDIGIT isdigit
 {ISALPHA} { cout << "<" << line_number << ", ISALPHA, " << yytext << ">" << endl; }
 {ISDIGIT} { cout << "<" << line_number << ", ISDIGIT, " << yytext << ">" << endl; }
 {NUMBER} { cout << "<" << line_number << ", NUMBER, " << yytext << ">" << endl; }
-. { cout << "<" << line_number << ", UNKNOWN, " << yytext << ">" << endl; }
+. ;
 %%
 int main() {
     if (freopen("../input.txt", "r", stdin) == NULL) {

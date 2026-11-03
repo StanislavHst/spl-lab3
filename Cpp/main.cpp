@@ -57,13 +57,7 @@ int main() {
             if (state >= 0) keep = lengths[state];
             if (state == -1 || state == -2) keep = 7;
             if (state == -3) keep = 2;
-            int remove = (int)value.size() - keep;
-            for (int i = 0; i < remove; i++) {
-                char ch = value[i];
-                if (ch != ' ' && ch != '\t' && ch != '\r')
-                    output << "<" << row << ", UNKNOWN, " << ch << ">\n";
-            }
-            value = value.substr(remove);
+            value = value.substr((int)value.size() - keep);
             if (state < 0) {
                 if (state != -4) {
                     string type = "NUMBER";
@@ -75,8 +69,6 @@ int main() {
                 state = 0;
             }
         }
-        for (char c : value)
-            output << "<" << row << ", UNKNOWN, " << c << ">\n";
     }
     cout << "Done: output_cpp.txt\n";
 }
