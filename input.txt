@@ -12,7 +12,7 @@ isalpha10isdigit99 99isalpha10
 90 91 92 93 94 95 96 97 98 99
 0 1 2 3 4 5 6 7 8 9 100 123 1234 9999
 i is isd isdi isdig isalph
-isalphaX isdigitX isalpha10 isdigit99
+aisalphaX isdisalphagitX isalpha10 isdigit99
 ISALPHA ISDIGIT IsAlpha IsDigit
 abcdefghijklmnopqrstuvwxyz
 ABCDEFGHIJKLMNOPQRSTUVWXYZ
@@ -20,3 +20,5 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
   isalpha	10   isdigit	99  
 
 after blank line: isdigit 10
+isdisdigit isdigisalpha iiisalpha isdiisdigit isdisisalpha
+isdi isdigi isdigis isdi0isalpha @isdigit 1isalpha 012

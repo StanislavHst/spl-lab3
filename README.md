@@ -1,22 +1,16 @@
-# SPL Lab 3, variant 15
+# Лабораторна робота 3, варіант 15
 
-The lexical analyzers recognize the keywords `isalpha` and `isdigit`, and two-digit decimal numbers without a leading zero. Both analyzers write tokens as `<line, type, value>`.
+Розпізнаються ключові слова `isalpha`, `isdigit` і двоцифрові десяткові сталі `[1-9][0-9]`. Формат результату: `<номер рядка, тип, значення>`.
 
-## Build and run
+Відкрийте `SPL_Lab3.sln` у Rider або Visual Studio та зберіть `Debug x64`. Запускайте проєкти `Cpp` та `Flex` окремо. Їхні робочі папки — відповідно `Cpp` і `Flex`.
 
-Open `SPL_Lab3.sln` in Rider or Visual Studio and build in `Debug x64`.
-
-The `Cpp` project reads `input.txt` and writes `output_cpp.txt`. The `Flex` project regenerates `Flex/scanner.cpp` from `Flex/scanner.l` before building, then writes `output_flex.txt`.
-
-To check both results, run `build_and_check.ps1` in Developer PowerShell for Visual Studio. It builds and runs both projects, then compares their output files.
-
-## Files
-
-- `input.txt` — lexer test input.
-- `output_cpp.txt`, `output_flex.txt` — results from both analyzers.
-- `Cpp/main.cpp` — table-driven analyzer.
-- `Flex/scanner.l` — Flex rules.
-- `automaton/dfa.png` — state diagram.
-- `automaton/transition_table.csv` — transition table.
-- `tools/win_flex.exe` — scanner generator used by the Flex project.
-- `tools/LICENSE_FLEX.txt` — Flex license.
+- `Cpp/main.cpp` використовує таблицю переходів та зберігає найдовший придатний суфікс. Після `isdi` + `s` залишається `is`: `q11 → q4` на класі 3. Після `isdigi` + `s` також залишається `is`: `q13 → q4`.
+- `q16` — стан сміття. Із нього можна почати нове слово, число або пропуски. Поглинального стану-пастки немає.
+- Відкинуті символи записуються окремо як `UNKNOWN`. Пропуски не виводяться. Незавершений префікс наприкінці рядка також розбивається на `UNKNOWN`.
+- Після повного числа або ключового слова лексема видається та починається новий пошук із `q0`. Рядки завершених лексем у таблиці показують переходи для наступного пошуку.
+- `Flex/scanner.l` містить регулярні вирази. Flex сам вибирає найдовший збіг; правило невідомого символу стоїть останнім. Проєкт генерує `Flex/scanner.cpp` перед збіркою.
+- Обидві програми читають `input.txt` і створюють відповідно `output_cpp.txt` та `output_flex.txt`.
+- `automaton/transition_table.csv` містить усі 221 переходи для 17 станів і 13 класів символів, пояснення станів та класів.
+- `automaton/dfa.png` показує всі вихідні переходи кожного стану окремою секцією. Повторені кола позначають ті самі стани. На стрілках стоять номери класів символів.
+- `build_and_check.ps1` у Developer PowerShell for Visual Studio збирає й запускає обидва проєкти та порівнює результати.
+- `tools/win_flex.exe` — генератор Flex; його ліцензія та походження наведені в папці `tools`.
